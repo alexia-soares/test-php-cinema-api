@@ -28,9 +28,13 @@ services:
     env_file:
       - ./.env
       - ./.env.local
+    volumes:
+      - db-data:/var/lib/mysql
 
   adminer:
     image: adminer
     ports:
       - '8090:8080'
 
+volumes:
+  db-data:

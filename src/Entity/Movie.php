@@ -9,7 +9,19 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Table(name: 'movie')]
 #[ORM\Entity]
-#[ApiResource]
+#[ApiResource(
+    collectionOperations: [
+        "get"=> ["security" => "is_granted('ROLE_USER')"],
+        "post" => ["security" => "is_granted('ROLE_USER')"],
+    ],
+    itemOperations: [
+        "get"=> ["security" => "is_granted('ROLE_USER')"],
+        "put" => ["security" => "is_granted('ROLE_USER')"],
+        "delete" => ["security" => "is_granted('ROLE_USER')"],
+        "patch" => ["security" => "is_granted('ROLE_USER')"],
+    ],
+    attributes: ["security" => "is_granted('ROLE_USER')"],
+)]
 class Movie
 {
     #[ORM\Id]
@@ -37,7 +49,7 @@ class Movie
 
     public function __construct()
     {
-        $this->peoples = new ArrayCollection();
+        $this->movieHasPeoples = new ArrayCollection();
         $this->types = new ArrayCollection();
     }
 
@@ -71,11 +83,6 @@ class Movie
         $this->duration = $duration;
     }
 
-    public function getPeoples(): ArrayCollection|Collection
-    {
-        return $this->peoples;
-    }
-
     public function getPosterUrl(): ?string
     {
         return $this->posterUrl;
@@ -88,9 +95,16 @@ class Movie
         return $this;
     }
 
-    public function setPeoples(ArrayCollection|Collection $peoples): void
+    public function getMovieHasPeoples(): ArrayCollection|Collection
     {
-        $this->peoples = $peoples;
+        return $this->movieHasPeoples;
+    }
+
+    public function setMovieHasPeoples(ArrayCollection|Collection $movieHasPeoples): Movie
+    {
+        $this->movieHasPeoples = $movieHasPeoples;
+
+        return $this;
     }
 
     public function getTypes(): ArrayCollection|Collection

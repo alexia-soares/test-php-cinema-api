@@ -12,21 +12,18 @@ use Doctrine\ORM\Mapping as ORM;
 #[ApiResource]
 class MovieHasPeople
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue(strategy: 'IDENTITY')]
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private int $id;
-
     #[ORM\Column(type: 'string', length: 255, nullable: false)]
     private string $role;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $significance = null;
 
+    #[ORM\Id]
     #[ORM\ManyToOne(targetEntity: People::class, cascade: ['persist'], fetch: 'EAGER', inversedBy: 'movieHasPeoples')]
     #[ORM\JoinColumn(name: 'People_id', referencedColumnName: 'id', nullable: false, onDelete: 'cascade')]
     private People $people;
 
+    #[ORM\Id]
     #[ORM\ManyToOne(targetEntity: Movie::class, cascade: ['persist', 'remove'], inversedBy: 'movieHasPeoples')]
     #[ORM\JoinColumn(name: 'Movie_id', referencedColumnName: 'id', nullable: false, onDelete: 'cascade')]
     private Movie $movie;
