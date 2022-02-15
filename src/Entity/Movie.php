@@ -11,16 +11,15 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity]
 #[ApiResource(
     collectionOperations: [
-        "get"=> ["security" => "is_granted('ROLE_USER')"],
+        "get",
         "post" => ["security" => "is_granted('ROLE_USER')"],
     ],
     itemOperations: [
-        "get"=> ["security" => "is_granted('ROLE_USER')"],
+        "get",
         "put" => ["security" => "is_granted('ROLE_USER')"],
         "delete" => ["security" => "is_granted('ROLE_USER')"],
         "patch" => ["security" => "is_granted('ROLE_USER')"],
     ],
-    attributes: ["security" => "is_granted('ROLE_USER')"],
 )]
 class Movie
 {
