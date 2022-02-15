@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+  php:
+    build: ./docker/d-php-fpm
+    volumes:
+      - ./:/var/www/html:rw,cached
+    env_file:
+      - ./.env
+      - ./.env.local
+
+  httpd:
+    build: ./docker/d-httpd
+    volumes:
+      - .:/var/www/html:rw,cached
+    env_file:
+      - ./.env
+      - ./.env.local
+    ports:
+      - '80:80'
+    depends_on:
+      - db
+
+  db:
+    image: mariadb:10.6.5
+    ports:
+      - '3307:3306'
+    env_file:
+      - ./.env
+      - ./.env.local
+
+  adminer:
+    image: adminer
+    ports:
+      - '8090:8080'
+
