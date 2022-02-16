@@ -11,14 +11,14 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity]
 #[ApiResource(
     collectionOperations: [
-        "get",
-        "post" => ["security" => "is_granted('ROLE_USER')"],
+        'get',
+        'post' => ['security' => "is_granted('ROLE_USER')"],
     ],
     itemOperations: [
-        "get",
-        "put" => ["security" => "is_granted('ROLE_USER')"],
-        "delete" => ["security" => "is_granted('ROLE_USER')"],
-        "patch" => ["security" => "is_granted('ROLE_USER')"],
+        'get',
+        'put' => ['security' => "is_granted('ROLE_USER')"],
+        'delete' => ['security' => "is_granted('ROLE_USER')"],
+        'patch' => ['security' => "is_granted('ROLE_USER')"],
     ],
 )]
 class People
@@ -46,16 +46,6 @@ class People
     public function __construct()
     {
         $this->movieHasPeoples = new ArrayCollection();
-    }
-
-    public function getMovie(): ArrayCollection
-    {
-        return $this->movie;
-    }
-
-    public function setMovie(ArrayCollection $movie): void
-    {
-        $this->movie = $movie;
     }
 
     public function getId(): int

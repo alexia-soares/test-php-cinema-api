@@ -38,11 +38,11 @@ class MovieImportImageCommand extends Command
         $fails = $count = 0;
 
         /** @var Movie $movie */
-        foreach ($this->entityManager->getRepository(Movie::class)->findAll() as $movie) {
+        foreach ($this->entityManager->getRepository(Movie::class)->findBy(['posterUrl' => null]) as $movie) {
             try {
                 $response = $this->client->request(
                     'GET',
-                    $this->imdbUrl . '/title/find?q=' . $movie->getTitle(),
+                    $this->imdbUrl.'/title/find?q='.$movie->getTitle(),
                     [
                         'headers' => [
                             'x-rapidapi-host' => 'imdb8.p.rapidapi.com',
@@ -53,7 +53,7 @@ class MovieImportImageCommand extends Command
             } catch (\Exception $e) {
                 $io->error('Error : '.$e->getMessage());
 
-                $fails++;
+                ++$fails;
                 if ($fails > 5) {
                     $io->error('STOP : Two many trials.');
 
@@ -76,7 +76,7 @@ class MovieImportImageCommand extends Command
                 $this->entityManager->flush();
             }
 
-            $count++;
+            ++$count;
         }
 
         $this->entityManager->flush();

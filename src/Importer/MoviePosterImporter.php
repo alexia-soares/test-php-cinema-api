@@ -31,7 +31,7 @@ class MoviePosterImporter
         try {
             $response = $this->client->request(
                 'GET',
-                $this->imdbUrl . '/title/find?q=' . $title,
+                $this->imdbUrl.'/title/find?q='.$title,
                 [
                     'headers' => [
                         'x-rapidapi-host' => 'imdb8.p.rapidapi.com',
@@ -40,8 +40,6 @@ class MoviePosterImporter
                 ]
             );
         } catch (\Exception $e) {
-            $this->logger->error('TODO');
-
             return $posterUrl;
         }
 

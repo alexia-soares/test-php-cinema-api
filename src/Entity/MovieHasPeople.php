@@ -3,22 +3,20 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Table(name: 'movie_has_people')]
 #[ORM\Entity]
 #[ApiResource(
     collectionOperations: [
-        "get",
-        "post" => ["security" => "is_granted('ROLE_USER')"],
+        'get',
+        'post' => ['security' => "is_granted('ROLE_USER')"],
     ],
     itemOperations: [
-        "get",
-        "put" => ["security" => "is_granted('ROLE_USER')"],
-        "delete" => ["security" => "is_granted('ROLE_USER')"],
-        "patch" => ["security" => "is_granted('ROLE_USER')"],
+        'get',
+        'put' => ['security' => "is_granted('ROLE_USER')"],
+        'delete' => ['security' => "is_granted('ROLE_USER')"],
+        'patch' => ['security' => "is_granted('ROLE_USER')"],
     ],
 )]
 class MovieHasPeople
@@ -47,6 +45,7 @@ class MovieHasPeople
     public function setRole(string $role): MovieHasPeople
     {
         $this->role = $role;
+
         return $this;
     }
 
